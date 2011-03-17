@@ -5,7 +5,7 @@ import java.util.ArrayList;
 class ClosestGrass implements Algorithm {
     int closestfound = 0;
     boolean[][] fieldTested = new boolean[15][19];
-    ArrayList outerfield;
+    ArrayList outerfield = new ArrayList<String>();
 
     public int[] calculate(Type map[][], Creature parrent){
 	return findClosestGrass(map,parrent,1);
