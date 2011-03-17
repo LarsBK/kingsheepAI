@@ -7,9 +7,10 @@ public class Sheep extends Creature {
     public Sheep(Type type, Simulator parent, int playerID, int x, int y) {
         super(type, parent, playerID, x, y);
 		a[0] = new Random();
+		a[1] = new ClosestGrass();
     }
 
-	Algorithm a[] = new Algorithm[1];
+	Algorithm a[] = new Algorithm[2];
 
     protected void think(Type map[][]) {
 		//System.out.println(map.length);
