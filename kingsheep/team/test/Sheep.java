@@ -44,14 +44,22 @@ public class Sheep extends Creature {
 		move = Move.WAIT;
 		int highest = vote[0];
 
-		if(vote[1] > highest)
+		if(vote[1] > highest) {
+			highest = vote[1];
 			move = Move.UP;
-		if(vote[2] > highest)
+		}
+		if(vote[2] > highest) {
+			highest = vote[2];
 			move = Move.DOWN;
-		if(vote[3] > highest)
+		}
+		if(vote[3] > highest) {
+			highest = vote[3];
 			move = Move.LEFT;
-		if(vote[4] > highest)
+		}
+		if(vote[4] > highest) {
+			highest = vote[4];
 			move = Move.RIGHT;
+		}
 
 
 		/*rateField(y,x+1, map);
