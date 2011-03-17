@@ -18,7 +18,7 @@ class ClosestGrass implements Algorithm {
 	    fieldTested[parrent.y+1][parrent.x] = true;
 	    if(map[parrent.y+1][parrent.x] == Type.GRASS){
 		closestfound = antsteps;
-		toReturn[1] = 100;
+		toReturn[2] = 100;
 	    }else{
 		String current = parrent.y+1 + "" + parrent.x;
 		outerfield.add(current);
@@ -38,7 +38,7 @@ class ClosestGrass implements Algorithm {
 	    fieldTested[parrent.y-1][parrent.x] = true;
 	    if(map[parrent.y-1][parrent.x] == Type.GRASS){
 		closestfound = antsteps;
-		toReturn[2] = 100;
+		toReturn[1] = 100;
 	    }else{
 		String current = parrent.y-1 + "" + parrent.x;
 		outerfield.add(current);
