@@ -7,7 +7,7 @@ class Random implements Algorithm {
 		int t = (int)(Math.random() * 4);
 		
 		int a[] = new int[5];
-		a[t+1] = 100;
+		a[t+1] = 1;
 		return a;
 	}
 }
