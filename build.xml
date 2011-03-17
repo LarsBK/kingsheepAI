@@ -1,0 +1,73 @@
+<project name="KingSheep" default="usage" basedir=".">
+  <description>
+    Build script for KING SHEEP.
+  </description>
+
+  <!-- Set your team name in the value field -->
+  <property name="TEAMNAME" value="" />
+
+  <!-- set global properties for this build -->
+  <property name="build"  location="build"/>
+  <property name="dist" location="dist" />
+  <property name="kingsheep"  location="kingsheep"/>
+  <property name="delivery-file" value="${TEAMNAME}.zip" />
+
+  <target name="usage">
+    <echo>
+      ============================================
+      ====   King Sheep   -    Build file     ====
+      ============================================
+      Targets:
+      clean                - clean up
+      compile              - compile source code
+      create-delivery      - Create the delivery file to hand in.
+    </echo>
+  </target>
+
+  <target name="init">
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+    <mkdir dir="${dist}" />
+  </target>
+
+  <!-- Compile source code -->
+  <target name="compile" depends="init"
+          description="compile the source">
+    <javac srcdir="${kingsheep}"
+           destdir="${build}" />
+    <jar destfile="${dist}/kingsheep.jar">
+      <fileset dir="build/"/>
+      <fileset dir="res/" />
+      <manifest>
+        <attribute name="Main-Class"
+                   value="kingsheep.KingSheep"/>
+      </manifest>
+  </jar>
+  </target>
+
+  <target name="clean"
+          description="clean up" >
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+    <delete file="${delivery-file}"/>
+  </target>
+
+  <!-- Create delivery file -->
+  <target name="create-delivery" description="Create file to be delivered">
+
+    <echo>Rememeber to write your comments to the file TO_LAB_TEACHER.txt</echo>
+
+    <!-- Fail if file name hasn't been changed -->
+    <fail message="You have to set your team name in the build.xml file">
+      <condition>
+        <equals arg1="${delivery-file}" arg2="${file-postfix}"/>
+      </condition>
+    </fail>
+
+    <zip destfile="${delivery-file}"
+         basedir="."
+         includes="kingsheep/team/${TEAMNAME}/*.java" />
+  </target>
+
+</project>
