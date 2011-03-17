@@ -6,15 +6,46 @@ public class Sheep extends Creature {
 
     public Sheep(Type type, Simulator parent, int playerID, int x, int y) {
         super(type, parent, playerID, x, y);
+		a[0] = new Random();
     }
 
+	Algorithm a[] = new Algorithm[1];
+
     protected void think(Type map[][]) {
-		System.out.println(map.length);
-		System.out.println("Is at: " + y + ", " + x);
+		//System.out.println(map.length);
+		//System.out.println("Is at: " + y + ", " + x);
 		//if(true)
 		//	throw new RuntimeException("LOL");
 
-		rateField(y,x+1, map);
+		//int voteUp = 0;
+		//int voteDown = 0;
+		//int voteRight = 0;
+		//int voteLeft = 0;
+		
+		int vote[] = new int[5];
+		int result[];
+
+		for(int i = 0; i < a.length; i++) {
+			result = a[i].calculate(map, this);
+
+			for(int u = 0; u < result.length; u++) {
+				vote[u] += result[u];
+			}
+		}
+
+		move = Move.WAIT;
+
+		if(vote[1] > vote[0])
+			move = Move.UP;
+		if(vote[2] > vote[1])
+			move = Move.DOWN;
+		if(vote[3] > vote[2])
+			move = Move.LEFT;
+		if(vote[4] > vote[3])
+			move = Move.RIGHT;
+
+
+		/*rateField(y,x+1, map);
         int t = (int)(Math.random() * 4);
 
         switch (t) {
@@ -34,7 +65,8 @@ public class Sheep extends Creature {
             move = Move.WAIT;
             break;
         }
-    
+		*/
+
 		System.out.println("Is at: " + y + ", " + x);
 		System.out.println("move: " + move + "X:" + y + " Y:" + x);
 	}
