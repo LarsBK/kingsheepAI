@@ -5,8 +5,7 @@ interface Algorithm {
 
 	//Algorithm();
 
-	Move calculate(Type map[][], Creature parent);
+	public int[] calculate(Type map[][], Creature parent);
 
-	int getRank();
 
 }
