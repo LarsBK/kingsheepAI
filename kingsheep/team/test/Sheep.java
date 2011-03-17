@@ -42,14 +42,15 @@ public class Sheep extends Creature {
 		System.out.println();
 
 		move = Move.WAIT;
+		int highest = vote[0];
 
-		if(vote[1] > vote[0])
+		if(vote[1] > highest)
 			move = Move.UP;
-		if(vote[2] > vote[1])
+		if(vote[2] > highest)
 			move = Move.DOWN;
-		if(vote[3] > vote[2])
+		if(vote[3] > highest)
 			move = Move.LEFT;
-		if(vote[4] > vote[3])
+		if(vote[4] > highest)
 			move = Move.RIGHT;
 
 
