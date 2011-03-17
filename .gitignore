@@ -1,0 +1,4 @@
+*.swp
+build\**
+*.class
+*.html
