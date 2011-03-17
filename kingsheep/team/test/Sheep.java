@@ -31,8 +31,10 @@ public class Sheep extends Creature {
 
 			for(int u = 0; u < result.length; u++) {
 				vote[u] += result[u];
+				System.out.print(" " + vote[u]);
 			}
 		}
+		System.out.println();
 
 		move = Move.WAIT;
 
