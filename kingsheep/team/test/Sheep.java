@@ -8,9 +8,15 @@ public class Sheep extends Creature {
 		super(type, parent, playerID, x, y);
 		a[0] = new Random();
 		a[1] = new ClosestGrass();
+		a[2] = new dontMoveIntoWall();
+		a[3] = new keepSameDirection();
 	}
 
-	Algorithm a[] = new Algorithm[2];
+	Algorithm a[] = new Algorithm[4];
+	//private Move prevMove = Move.WAIT;
+	//public Move get() {
+	//	return move;
+	//}
 
 	protected void think(Type map[][]) {
 		//System.out.println(map.length);
@@ -30,13 +36,15 @@ public class Sheep extends Creature {
 			try{
 				result = a[i].calculate(map, this);
 
+				System.out.print(a[i].getName());
 				for(int u = 0; u < result.length; u++) {
-					vote[u] += result[u];
-					System.out.print(" " + vote[u]);
+					vote[u] += a[i].getMultiplyer() * result[u];
+					System.out.print("][" + result[u]);
 				}
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
+			System.out.println();
 
 		}
 		System.out.println();
@@ -61,6 +69,8 @@ public class Sheep extends Creature {
 			move = Move.RIGHT;
 		}
 
+		//prevMove = move;
+
 
 		/*rateField(y,x+1, map);
 		  int t = (int)(Math.random() * 4);
@@ -84,8 +94,7 @@ public class Sheep extends Creature {
 		  }
 		 */
 
-		System.out.println("Is at: " + y + ", " + x);
-		System.out.println("move: " + move + "X:" + y + " Y:" + x);
+		System.out.println("move: " + move);
 	}
 
 	private int rateField(int y, int x, Type map[][]) {

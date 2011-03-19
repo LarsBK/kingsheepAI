@@ -7,6 +7,14 @@ class ClosestGrass implements Algorithm {
     boolean[][] fieldTested = new boolean[15][19];
     ArrayList outerfield = new ArrayList<String>();
 
+	public String getName() {
+		return "ClosestGrass";
+	}
+	
+	public double getMultiplyer() {
+		return 1.0f;
+	}
+
     public int[] calculate(Type map[][], Creature parrent){
 	return findClosestGrass(map,parrent,1);
     }
