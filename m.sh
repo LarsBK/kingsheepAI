@@ -1,1 +1,1 @@
-ant compile && java -jar dist/kingsheep.jar kingsheep/test.map test dumb
+ant compile && java -jar dist/kingsheep.jar kingsheep/test.map test awesome
