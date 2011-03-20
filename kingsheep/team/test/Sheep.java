@@ -42,7 +42,10 @@ public class Sheep extends Creature {
 					System.out.print("][" + result[u]);
 				}
 			} catch(Exception e) {
+				System.err.println(a[i].getName() + " has crashed");
 				e.printStackTrace();
+				//hang
+				while(true) {}
 			}
 			System.out.println();
 
