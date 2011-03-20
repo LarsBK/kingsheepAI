@@ -3,9 +3,7 @@ import kingsheep.*;
 import java.util.ArrayList;
 
 class ClosestGrass implements Algorithm {
-    int closestfound = 0;
-    boolean[][] fieldTested = new boolean[15][19];
-    ArrayList outerfield = new ArrayList<String>();
+   
 
 	public String getName() {
 		return "ClosestGrass";
@@ -20,9 +18,14 @@ class ClosestGrass implements Algorithm {
     }
     
     private int[] findClosestGrass(Type map[][], Creature parrent, int antsteps){
+	int closestfound = 0;
+	boolean[][] fieldTested = new boolean[15][19];
+	ArrayList outerfield = new ArrayList<String>();
 	int toReturn [] = new int[5];
-   
-	if(fieldTested[parrent.y+1][parrent.x] != true){
+
+		
+	if(((parrent.y+1) < map.length)
+	   && (fieldTested[parrent.y+1][parrent.x] != true)){
 	    fieldTested[parrent.y+1][parrent.x] = true;
 	    if(map[parrent.y+1][parrent.x] == Type.GRASS){
 		closestfound = antsteps;
@@ -32,7 +35,8 @@ class ClosestGrass implements Algorithm {
 		outerfield.add(current);
 	    }
 	}
-	if(fieldTested[parrent.y][parrent.x+1] != true){
+	if((parrent.x +1 < map[0].length)
+	   && fieldTested[parrent.y][parrent.x+1] != true){
 	    fieldTested[parrent.y][parrent.x+1] = true;
 	    if(map[parrent.y][parrent.x+1] == Type.GRASS){
 		closestfound = antsteps;
@@ -42,7 +46,8 @@ class ClosestGrass implements Algorithm {
 		outerfield.add(current);
 	    }
 	}
-	if(fieldTested[parrent.y-1][parrent.x] != true){
+	if((parrent.y -1 >= 0)
+	   && fieldTested[parrent.y-1][parrent.x] != true){
 	    fieldTested[parrent.y-1][parrent.x] = true;
 	    if(map[parrent.y-1][parrent.x] == Type.GRASS){
 		closestfound = antsteps;
@@ -52,7 +57,8 @@ class ClosestGrass implements Algorithm {
 		outerfield.add(current);
 	    }
 	}
-	if(fieldTested[parrent.y][parrent.x-1] != true){
+	if(((parrent.x-1) >=0)
+	   && fieldTested[parrent.y][parrent.x-1] != true){
 	    fieldTested[parrent.y][parrent.x-1] = true;
 	    if(map[parrent.y][parrent.x-1] == Type.GRASS){
 		closestfound = antsteps;
