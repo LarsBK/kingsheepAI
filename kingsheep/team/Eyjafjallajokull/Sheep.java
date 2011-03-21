@@ -12,7 +12,7 @@ public class Sheep extends AI {
 		protectSheep = 100; //Stay alive, replaces wolfFear. 100 is terrified of enemy wolf
 		protectGrass = 0;
 
-		a = new Algorithm[3];
+		a = new Algorithm[4];
 		a[0] = new BestClose();
 		//a[2] = new ClosestGrass();
 		//a[2] = new dontMoveIntoWall(); unstable
@@ -20,6 +20,7 @@ public class Sheep extends AI {
 		//a[2] = new Evade(); unstable
 		a[2] = new DontStandStill();
 		a[1] = new DontMoveBack();
+		a[3] = new Random();
 	}
 
 

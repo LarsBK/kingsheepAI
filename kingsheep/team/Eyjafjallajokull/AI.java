@@ -81,4 +81,30 @@ abstract class AI extends Creature {
 	}
 
 	abstract public int rateField(int y, int x);
+
+	static boolean isLegal(Type t1, Type t2) {
+	
+		if (t2 == Type.FENCE ||
+				(t1 == Type.SHEEP1) && (t2 == Type.WOLF1)  ||
+				(t1 == Type.SHEEP2) && (t2 == Type.WOLF2)  ||
+				(t1 == Type.SHEEP1) && (t2 == Type.SHEEP2) ||
+				(t1 == Type.SHEEP2) && (t2 == Type.SHEEP1) ||
+				(t1 == Type.WOLF1)  && (t2 == Type.SHEEP1) ||
+				(t1 == Type.WOLF1)  && (t2 == Type.WOLF2)  ||
+				(t1 == Type.WOLF2)  && (t2 == Type.WOLF1)  ||
+				(t1 == Type.WOLF2)  && (t2 == Type.SHEEP2))
+			return false;
+
+		return true;
+	}
+	
+	static boolean isLegal(int yi, int xi, Type map[][]) {
+		if(yi < 0 || yi > map.length-1 || xi < 0 || xi > map[0].length-1) {
+			return false;
+		} else if (map[yi][xi] == Type.FENCE) 
+			return false;
+		else
+			return true;
+	}
+
 }
