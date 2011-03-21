@@ -6,37 +6,54 @@ public class Sheep extends AI {
 
 	public Sheep(Type type, Simulator parent, int playerID, int x, int y) {
 		super(type, parent, playerID, x, y);
+		
+		eatGrass = 100;
+		eatSheep = 0;
+		protectSheep = 100; //Stay alive, replaces wolfFear. 100 is terrified of enemy wolf
+		protectGrass = 0;
+
 		a = new Algorithm[3];
-		a[0] = new Random();
-		a[2] = new ClosestGrass();
+		a[0] = new BestClose();
+		//a[2] = new ClosestGrass();
 		//a[2] = new dontMoveIntoWall(); unstable
-		a[1] = new keepSameDirection();
+		//a[1] = new keepSameDirection();
 		//a[2] = new Evade(); unstable
+		a[2] = new DontStandStill();
+		a[1] = new DontMoveBack();
 	}
 
 
-	public int rateField(int y, int x, Type map[][]) {
+	public int rateField(int ry, int rx) {
 		//0 er nøytral
-		int rate = 0;
+		//IKKE FERDIG
+		int rate;
 
-		if(map[y][x] == Type.GRASS) {
-			rate+=5;
-		} else if(map[y][x] == Type.RHUBARB) {
-			rate+=15;
-		} else if(map[y][x] == Type.SHEEP2) {
-			rate-=100;
-		} else if(map[y][x] == Type.WOLF2) {
-			rate-=10000;
-		} else if(map[y][x] == Type.WOLF1) {
-			rate-=-100;
-		} else if(map[y][x] == Type.EMPTY) {
-			rate += 0;
-		} else {
-			System.out.println("wtf?");
+		if(ry < 0 || ry > map.length-1 || rx < 0 || rx > map[0].length-1) {
+			rate= -100;
+		}
+		else if(map[ry][rx] == Type.GRASS) {
+			rate= eatGrass/2;
+		} else if(map[ry][rx] == Type.RHUBARB) {
+			rate= eatGrass;
+		} else if(map[ry][rx] == Type.SHEEP2) {
+			rate= eatSheep;
+		} else if(map[ry][rx] == Type.WOLF2) {
+			rate= - protectSheep;
+		} else if(map[ry][rx] == Type.WOLF1) {
+			rate= 0;
+		} else if(map[ry][rx] == Type.EMPTY) {
+			rate= 0;
+		} else if(map[ry][rx] == Type.FENCE) {
+			rate= -100;
+		} else if(map[ry][rx] == Type.SHEEP1) {
+			rate= 0;
+		}else {
+			rate= 0;
+			System.out.println("wtf?" + ry + " " + rx + " " + x + " " + y);
 		}
 
-		if(map[y][x] != Type.EMPTY)
-			System.out.println(map[y][x] + " rate: " + rate);
+		//if(map[ry][rx] != Type.EMPTY)
+		//	System.out.println(map[ry][rx] + " rate: " + rate);
 		return rate;
 	}
 }

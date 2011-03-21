@@ -1,6 +1,8 @@
 package kingsheep.team.Eyjafjallajokull;
 import kingsheep.*;
 
+/* Obsoleted by rateField, do not use*/
+
 class dontMoveIntoWall implements Algorithm {
 	public double getMultiplyer() {
 		return 2.0f;

@@ -10,7 +10,7 @@ public class Wolf extends AI {
 		a[0] = new Random();
     }
 
-    public int rateField(int y, int x, Type map[][]) {
+    public int rateField(int y, int x) {
 		return 0;
 	}
 }

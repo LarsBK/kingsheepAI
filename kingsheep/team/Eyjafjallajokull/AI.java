@@ -6,11 +6,12 @@ import kingsheep.*;
 abstract class AI extends Creature {
 
 	//Feelings -100 - 100
-	private int eatGrass;
-	private int eatSheep;
-	private int protectSheep;
-	private int protectGrass;
-	private int wolfFear;
+	int eatGrass;
+	int eatSheep;
+	int protectSheep;
+	int protectGrass;
+
+	Type map[][];
 
 	//Algorithms
 	Algorithm a[];
@@ -20,6 +21,7 @@ abstract class AI extends Creature {
 	}
 
 	protected void think(Type map[][]) {
+		this.map = map;
 		System.out.println(this.getClass().getName());
 
 		int vote[] = new int[5];
@@ -46,12 +48,18 @@ abstract class AI extends Creature {
 				//hang
 				while(true) {}
 			}
-			System.out.println();
+			int in = (int) (a[i].getMultiplyer()*100);
+			double m = (double)in / 100;
+			System.out.println(" *" + m);
 		}
 
-		move = Move.WAIT;
-		int highest = vote[0];
+		//move = Move.WAIT;
+		int highest = Integer.MIN_VALUE;
 
+		if(vote[0] > highest) {
+			highest = vote[0];
+			move = Move.WAIT;
+		}
 		if(vote[1] > highest) {
 			highest = vote[1];
 			move = Move.UP;
@@ -72,5 +80,5 @@ abstract class AI extends Creature {
 		System.out.println("move: " + move + " Time: " + thinkTime + "ns\n");
 	}
 
-	abstract public int rateField(int y, int x, Type map[][]);
+	abstract public int rateField(int y, int x);
 }
