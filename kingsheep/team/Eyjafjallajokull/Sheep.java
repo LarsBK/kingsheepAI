@@ -6,11 +6,12 @@ public class Sheep extends AI {
 
 	public Sheep(Type type, Simulator parent, int playerID, int x, int y) {
 		super(type, parent, playerID, x, y);
-		a = new Algorithm[1];
+		a = new Algorithm[3];
 		a[0] = new Random();
-		//a[1] = new ClosestGrass();
-		//a[2] = new dontMoveIntoWall();
-		//a[3] = new keepSameDirection();
+		a[2] = new ClosestGrass();
+		//a[2] = new dontMoveIntoWall(); unstable
+		a[1] = new keepSameDirection();
+		//a[2] = new Evade(); unstable
 	}
 
 

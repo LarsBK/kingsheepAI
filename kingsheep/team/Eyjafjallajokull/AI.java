@@ -20,15 +20,22 @@ abstract class AI extends Creature {
 	}
 
 	protected void think(Type map[][]) {
+		System.out.println(this.getClass().getName());
 
 		int vote[] = new int[5];
 		int result[];
+		long thinkTime = 0;
 
 		for(int i = 0; i < a.length; i++) {
+			long time = System.nanoTime();
 			try{
 				result = a[i].calculate(map, this);
 
-				System.out.print(a[i].getName() + ": ");
+				long totalTime = System.nanoTime() - time;
+
+				System.out.print(a[i].getName() + "(" + totalTime + "ns): ");
+				thinkTime += totalTime;
+				
 				for(int u = 0; u < result.length; u++) {
 					vote[u] += a[i].getMultiplyer() * result[u];
 					System.out.print("|" + result[u]);
@@ -62,7 +69,7 @@ abstract class AI extends Creature {
 			move = Move.RIGHT;
 		}
 
-		System.out.println("move: " + move);
+		System.out.println("move: " + move + " Time: " + thinkTime + "ns\n");
 	}
 
 	abstract public int rateField(int y, int x, Type map[][]);
