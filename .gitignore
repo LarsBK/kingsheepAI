@@ -1,11 +1,9 @@
 *.swp
+*.swo
 *~
-
 *.class
 *.html
 *.jar
-
 build/**/*
 dist/**/*
 res/**/*
-kingsheep/*
