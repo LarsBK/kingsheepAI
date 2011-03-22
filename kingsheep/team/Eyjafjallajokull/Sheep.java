@@ -16,11 +16,12 @@ public class Sheep extends AI {
 		a[0] = new BestClose();
 		//a[2] = new ClosestGrass();
 		//a[2] = new dontMoveIntoWall(); unstable
-		//a[1] = new keepSameDirection();
+		a[2] = new keepSameDirection();
 		//a[2] = new Evade(); unstable
-		a[2] = new DontStandStill();
-		a[1] = new DontMoveBack();
-		a[3] = new Random();
+		//a[2] = new DontStandStill();
+		a[3] = new DontMoveBack();
+		//a[3] = new Random();
+		a[1] = new TowardBest();
 	}
 
 

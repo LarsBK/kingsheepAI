@@ -1,6 +1,8 @@
 package kingsheep.team.Eyjafjallajokull;
 
 import kingsheep.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 
 abstract class AI extends Creature {
@@ -10,6 +12,17 @@ abstract class AI extends Creature {
 	int eatSheep;
 	int protectSheep;
 	int protectGrass;
+
+	//Information
+	int enemySheepX;
+	int enemySheepY;
+	int enemyWolfX;
+	int enemyWolfY;
+
+	//list of good and bad fields
+	ArrayList<Field> goodFields = new ArrayList<Field>();
+	ArrayList<Field> badFields = new ArrayList<Field>();
+
 
 	Type map[][];
 
@@ -23,6 +36,7 @@ abstract class AI extends Creature {
 	protected void think(Type map[][]) {
 		this.map = map;
 		System.out.println(this.getClass().getName());
+		scanMap();
 
 		int vote[] = new int[5];
 		int result[];
@@ -105,6 +119,46 @@ abstract class AI extends Creature {
 			return false;
 		else
 			return true;
+	}
+
+	private void scanMap() {
+		int rate;
+		goodFields.clear();
+		badFields.clear();
+
+		for (int y = 0; y<map.length; y++) {
+			for (int x = 0; x < map[y].length; x++) {
+				rate = rateField(y,x);
+				if(rate > 0) {
+					goodFields.add(new Field(y,x,rate,map[y][x]));
+				} else if(rate < 0) {
+					badFields.add(new Field(y,x,rate,map[y][x]));
+				}
+			}
+		}
+		Collections.sort(goodFields);
+		Collections.sort(badFields);
+
+	}
+
+
+}
+
+class Field implements Comparable<Field>{
+	public Type type;
+	public int x;
+	public int y;
+	public Integer rate;
+
+	Field(int yi, int xi, int r, Type t) {
+		x = xi;
+		y = yi;
+		rate = r;
+		type = t;
+	}
+
+	public int compareTo(Field f) {
+		return rate.compareTo(f.rate);
 	}
 
 }
