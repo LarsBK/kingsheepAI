@@ -1,4 +1,8 @@
-/*import java.util.ArrayList;
+package kingsheep.team.Eyjafjallajokull;
+import java.util.ArrayList;
+import kingsheep.*;
+
+
 
 class PathAStar implements Path {
 	ArrayList<Node> openList = new ArrayList<Node>();
@@ -10,23 +14,62 @@ class PathAStar implements Path {
 
 	PathAStar(int fromY, int fromX, int toY, int toX, Type m[][]) {
 		map = m;
-		openList.add(new Node(fromY, fromX));
-		
-		Node n = getLowest();
-		openList.remove(n);
-		closedList.add(n);
+		targetX = toX;
+		targetY = toY;
+
+		openList.add(new Node(fromY, fromX, null));
+		System.out.println("Target: " + toY + " " + toX);
+
+	}
+
+	public int[] getDirection() {
+		int a[] = new int[5];
+		Node path[];
+		Node done = null;
+
+		while(done == null) {
+			if(openList.size() <= 0) {
+				System.out.println("Path not found");
+				return a;
+			}
+			Node n = getLowest();
+			openList.remove(n);
+			closedList.add(n);
+			done = n.spawn();
+		}
+
+		//Found
+		path = new Node[done.G+1];
+
+		Node c = done;
+		for (int i = path.length-1; i >= 0; i--) {
+			path[i] = c;
+			c = c.parent;
+		}
+
+		if(path[1].y < path[0].y)
+			a[1] = 100;
+		if(path[1].y > path[0].y)
+			a[2] = 100;
+		if(path[1].x < path[0].x)
+			a[3] = 100;
+		if(path[1].x > path[0].x)
+			a[4] = 100;
+
+		return a;
+
 
 	}
 
 	Node getLowest() {
-		int lowestF;
-		Node lowest;
+		int lowestF = Integer.MAX_VALUE;
+		Node lowest = null;
 
 		for(Node n : openList) {
 			if(n.F < lowestF)
 				lowest = n;
+				lowestF = lowest.F;
 		}
-		
 		return lowest;
 	}
 
@@ -34,7 +77,7 @@ class PathAStar implements Path {
 		Node parent;
 		int y;
 		int x;
-		
+
 		int G; //Distance to this node
 		int H; //Estimated distance to target
 		int F; //Estimated total distance to target
@@ -47,38 +90,58 @@ class PathAStar implements Path {
 		}
 
 		void calculate() {
-			G = parent.G + 1;
-			H = Math.Abs(targetX - x) + Math.Abs(targetY - y);
+			if(parent != null)
+				G = parent.G + 1;
+			else
+				G = 0;
+
+			H = Math.abs(targetX - x) + Math.abs(targetY - y);
 			F = G + H;
+
 		}
 
-		void Spawn() {
-			SpawnHelper(y+1,x);
-			SpawnHelper(y-1,x);
-			SpawnHelper(y,x+1);
-			SpawnHelper(y,x-1);
+		Node spawn() {
+			System.out.println("Distance: " + F);			
+
+			Node n[] = new Node[4];
+			n[0] = SpawnHelper(y+1,x);
+			n[1] = SpawnHelper(y-1,x);
+			n[2] = SpawnHelper(y,x+1);
+			n[3] = SpawnHelper(y,x-1);
+
+			for (int i = 0; i<n.length; i++) {
+				if(n[i] != null)
+					return n[i];
+			}
+			return null;
 		}
 
-		void SpawnHelper(int xi, int yi) {
-			Node n = new Node(xi,yi,this);
-			if(AI.isLegal(yi,xi) && !closedList.contains(n)) {
-				Node existing = openList.get(n);
-				if(existing != null) {
+		Node SpawnHelper(int yi, int xi) {
+			Node n = new Node(yi,xi,this);
+			if(AI.isLegal(yi,xi,map) && !closedList.contains(n)) {
+				int index = openList.indexOf(n);
+				if(index != -1) {
+					Node existing = openList.get(index);
+					
 					if(existing.G > G) {
 						existing.parent = this;
 						existing.calculate();
-						return;
+						return null;
 					}
 				}
 				openList.add(n);
-				return;
+				if(n.x == targetX && n.y == targetY)
+					return n;
+				else
+					return null;
 			}
-		return;
+			return null;
 		}
 
 
-		boolean equals(Node n) {
+		public boolean equals(Object o) {
+			Node n = (Node) o;
 			return (x == n.x && y == n.y);
 		}
 	}
-}*/
+}

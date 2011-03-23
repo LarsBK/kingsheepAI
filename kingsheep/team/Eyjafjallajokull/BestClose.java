@@ -12,7 +12,7 @@ class BestClose implements Algorithm {
 	}
 	
 	public double getMultiplyer() {
-		return 2.0f;
+		return 4.0f;
 	}
 
     public int[] calculate(Type map[][], AI parent) {
