@@ -95,7 +95,8 @@ class PathAStarRate implements Path {
 				//int rate = AIparent.rateField(y,x);
 				//if(rate == 0)
 					G = parent.G + 1;
-					totalRate = parent.totalRate + AIparent.rateField(y,x) - 20;
+					totalRate = parent.totalRate + 
+							AIparent.rateField(y,x) - 1;
 				//else if(rate > 0)
 				//	G = parent.G -1;
 				//else
