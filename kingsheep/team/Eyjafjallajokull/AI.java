@@ -115,10 +115,11 @@ abstract class AI extends Creature {
 	static boolean isLegal(int yi, int xi, Type map[][]) {
 		if(yi < 0 || yi > map.length-1 || xi < 0 || xi > map[0].length-1) {
 			return false;
-		} else if (map[yi][xi] == Type.FENCE) 
+		} else if (map[yi][xi] == Type.FENCE) {
 			return false;
-		else
+		}else {
 			return true;
+		}
 	}
 
 	private void scanMap() {

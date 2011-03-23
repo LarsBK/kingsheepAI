@@ -12,12 +12,12 @@ public class Wolf extends AI {
 		protectSheep = 0;
 		protectGrass = 0;
 
-		a = new Algorithm[5];
+		a = new Algorithm[1];
 		//a[0] = new Random();
-		a[1] = new BestClose();
-		a[2] = new keepSameDirection();
-		a[3] = new DontStandStill();
-		a[4] = new DontMoveBack();
+		//a[0] = new BestClose();
+		//a[2] = new keepSameDirection();
+		//a[3] = new DontStandStill();
+		//a[4] = new DontMoveBack();
 		a[0] = new TowardBest();
     }
 
