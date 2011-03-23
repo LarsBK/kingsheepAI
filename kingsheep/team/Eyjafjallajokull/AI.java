@@ -48,8 +48,9 @@ abstract class AI extends Creature {
 				result = a[i].calculate(map, this);
 
 				long totalTime = System.nanoTime() - time;
+				double percent = totalTime/10000000;
 
-				System.out.print(a[i].getName() + "(" + totalTime + "ns): ");
+				System.out.print(a[i].getName() + "(" + percent + "%): ");
 				thinkTime += totalTime;
 				
 				for(int u = 0; u < result.length; u++) {
@@ -90,8 +91,8 @@ abstract class AI extends Creature {
 			highest = vote[4];
 			move = Move.RIGHT;
 		}
-
-		System.out.println("move: " + move + " Time: " + thinkTime + "ns\n");
+		double percent = thinkTime / 10000000;
+		System.out.println("move: " + move + " Time: " + percent + "%\n");
 	}
 
 	abstract public int rateField(int y, int x);

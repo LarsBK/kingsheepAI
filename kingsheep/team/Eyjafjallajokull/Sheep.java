@@ -12,18 +12,18 @@ public class Sheep extends AI {
 		protectSheep = 100; //Stay alive, replaces wolfFear. 100 is terrified of enemy wolf
 		protectGrass = 0;
 
-		a = new Algorithm[2];
-		//a[0] = new BestClose();
-		a[1] = new ClosestGrassFarAway();
-		//a[0] = new ClosestGrass();
+		a = new Algorithm[7];
+		a[0] = new BestClose();
+		//a[1] = new ClosestGrassFarAway();
+		a[1] = new ClosestGrass();
 		//a[2] = new dontMoveIntoWall(); unstable
-		//a[2] = new keepSameDirection();
+		a[2] = new keepSameDirection();
 		//a[2] = new Evade(); unstable
-		//a[4] = new DontStandStill();
-		//a[3] = new DontMoveBack();
-		//a[0] = new Random();
+		a[3] = new DontStandStill();
+		a[4] = new DontMoveBack();
+		a[5] = new Random();
 
-		a[0] = new TowardBest();
+		a[6] = new TowardBest();
 
 
 

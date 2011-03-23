@@ -13,12 +13,12 @@ public class Wolf extends AI {
 		protectGrass = 0;
 
 		a = new Algorithm[1];
-		a[0] = new Random();
+		//a[0] = new Random();
 		//a[0] = new BestClose();
 		//a[2] = new keepSameDirection();
 		//a[3] = new DontStandStill();
 		//a[4] = new DontMoveBack();
-		//a[0] = new TowardBest();
+		a[0] = new TowardBest();
     }
 
     public int rateField(int ry, int rx) {
@@ -30,7 +30,7 @@ public class Wolf extends AI {
 			rate= -100;
 		}
 		else if(map[ry][rx] == Type.GRASS) {
-			rate= eatGrass/2;
+			rate= eatGrass/5;
 		} else if(map[ry][rx] == Type.RHUBARB) {
 			rate= eatGrass;
 		} else if(map[ry][rx] == Type.SHEEP2) {

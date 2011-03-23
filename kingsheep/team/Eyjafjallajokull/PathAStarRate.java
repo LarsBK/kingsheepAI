@@ -20,8 +20,6 @@ class PathAStarRate implements Path {
 		AIparent = p;
 
 		openList.add(new Node(fromY, fromX, null));
-		System.out.println("Target: " + toY + " " + toX);
-
 	}
 
 	public int[] getDirection() {
@@ -64,15 +62,15 @@ class PathAStarRate implements Path {
 	}
 
 	Node getLowest() {
-		int lowestF = Integer.MAX_VALUE;
-		Node lowest = null;
+		int highestRate = Integer.MIN_VALUE;
+		Node highest = null;
 
 		for(Node n : openList) {
-			if(n.F < lowestF)
-				lowest = n;
-				lowestF = lowest.F;
+			if(n.totalRate > highestRate)
+				highest = n;
+				highestRate = n.totalRate;
 		}
-		return lowest;
+		return highest;
 	}
 
 	class Node {
@@ -83,6 +81,7 @@ class PathAStarRate implements Path {
 		int G; //Distance to this node
 		int H; //Estimated distance to target
 		int F; //Estimated total distance to target
+		int totalRate; //Rate to this node
 
 		Node(int yi, int xi, Node p) {
 			y = yi;
@@ -96,6 +95,7 @@ class PathAStarRate implements Path {
 				//int rate = AIparent.rateField(y,x);
 				//if(rate == 0)
 					G = parent.G + 1;
+					totalRate = parent.totalRate + AIparent.rateField(y,x) - 20;
 				//else if(rate > 0)
 				//	G = parent.G -1;
 				//else
@@ -110,8 +110,6 @@ class PathAStarRate implements Path {
 		}
 
 		Node spawn() {
-			System.out.println("Distance: " + F);			
-
 			Node n[] = new Node[4];
 			n[0] = SpawnHelper(y+1,x);
 			n[1] = SpawnHelper(y-1,x);
@@ -132,7 +130,7 @@ class PathAStarRate implements Path {
 				if(index != -1) {
 					Node existing = openList.get(index);
 					
-					if(existing.G > G) {
+					if(existing.totalRate < totalRate) {
 						existing.parent = this;
 						existing.calculate();
 						return null;
