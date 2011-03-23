@@ -4,18 +4,20 @@ import kingsheep.*;
 
 
 
-class PathAStar implements Path {
+class PathAStarRate implements Path {
 	ArrayList<Node> openList = new ArrayList<Node>();
 	ArrayList<Node> closedList = new ArrayList<Node>();
 
 	int targetX;
 	int targetY;
 	Type map[][];
+	AI AIparent;
 
-	PathAStar(int fromY, int fromX, int toY, int toX, Type m[][]) {
+	PathAStarRate(int fromY, int fromX, int toY, int toX, Type m[][], AI p) {
 		map = m;
 		targetX = toX;
 		targetY = toY;
+		AIparent = p;
 
 		openList.add(new Node(fromY, fromX, null));
 		System.out.println("Target: " + toY + " " + toX);
@@ -90,9 +92,16 @@ class PathAStar implements Path {
 		}
 
 		void calculate() {
-			if(parent != null)
-				G = parent.G + 1;
-			else
+			if(parent != null) {
+				//int rate = AIparent.rateField(y,x);
+				//if(rate == 0)
+					G = parent.G + 1;
+				//else if(rate > 0)
+				//	G = parent.G -1;
+				//else
+				//	G = parent.G + 2;
+					
+			} else
 				G = 0;
 
 			H = Math.abs(targetX - x) + Math.abs(targetY - y);
