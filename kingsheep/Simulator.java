@@ -14,7 +14,7 @@ public class Simulator {
     private static final int FONTSIZE = 14;
 
     /** Maximum number of seconds a player is allowed to think. */
-    private static final int THINKLIMIT = 100000; //increased from 1000 by andreas
+    private static final int THINKLIMIT = 1000; //increased from 1000 by andreas
 
     /** Minimum time to wait between player turns (even if a player used
         less time to think). */

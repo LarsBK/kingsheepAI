@@ -21,21 +21,21 @@ public class Sheep extends AI {
 		//a[2] = new Evade(); unstable
 		//a[4] = new DontStandStill();
 		//a[3] = new DontMoveBack();
-		a[0] = new Random();
+		//a[0] = new Random();
 		//a[0] = new TowardBest();
 	}
 
 
-	public int rateField(int ry, int rx) {
+    public int rateField(int ry, int rx) {
 		//0 er nøytral
 		//IKKE FERDIG
 		int rate;
 
-		if(ry < 0 || ry > map.length-1 || rx < 0 || rx > map[0].length-1) {
+		if(!isLegal(ry,rx, map)) {
 			rate= -100;
 		}
 		else if(map[ry][rx] == Type.GRASS) {
-			rate= eatGrass/2;
+			rate= eatGrass/5;
 		} else if(map[ry][rx] == Type.RHUBARB) {
 			rate= eatGrass;
 		} else if(map[ry][rx] == Type.SHEEP2) {
@@ -43,7 +43,7 @@ public class Sheep extends AI {
 		} else if(map[ry][rx] == Type.WOLF2) {
 			rate= - protectSheep;
 		} else if(map[ry][rx] == Type.WOLF1) {
-			rate= 0;
+			rate= -10;
 		} else if(map[ry][rx] == Type.EMPTY) {
 			rate= 0;
 		} else if(map[ry][rx] == Type.FENCE) {
