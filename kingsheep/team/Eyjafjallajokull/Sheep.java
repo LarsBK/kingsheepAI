@@ -23,7 +23,8 @@ public class Sheep extends AI {
 		//a[4] = new DontMoveBack();
 		//a[5] = new Random();
 
-		a[0] = new TowardBest();
+		a[0] = new BestPossible();
+		//a[0] = new TowardBest();
 
 
 
