@@ -55,4 +55,8 @@ public class Wolf extends AI {
 		return rate;
 
 	}
+
+	void feel() {
+
+	}
 }

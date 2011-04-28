@@ -24,9 +24,13 @@ public class Sheep extends AI {
 		//a[5] = new Random();
 
 		a[0] = new BestPossible();
-		//a[0] = new TowardBest();
+		//test2.mapa[0] = new TowardBest();
 
 
+
+	}
+
+	void feel() {
 
 	}
 
