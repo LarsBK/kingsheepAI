@@ -14,7 +14,7 @@ public class Sheep extends AI {
 
 		a = new Algorithm[1];
 		//a[0] = new BestClose();
-		//a[1] = new ClosestGrassFarAway();
+		a[0] = new ClosestGrassFarAway();
 		//a[1] = new ClosestGrass();
 		//a[2] = new dontMoveIntoWall(); unstable
 		//a[2] = new keepSameDirection();
@@ -23,7 +23,7 @@ public class Sheep extends AI {
 		//a[4] = new DontMoveBack();
 		//a[5] = new Random();
 
-		a[0] = new BestPossible();
+		//a[0] = new BestPossible();
 		//a[0] = new TowardBest();
 
 
