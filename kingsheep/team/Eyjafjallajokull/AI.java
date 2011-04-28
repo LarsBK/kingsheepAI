@@ -37,6 +37,7 @@ abstract class AI extends Creature {
 		this.map = map;
 		System.out.println(this.getClass().getName());
 		scanMap();
+		feel();
 
 		int vote[] = new int[5];
 		int result[];
@@ -93,6 +94,7 @@ abstract class AI extends Creature {
 		}
 		double percent = thinkTime / 10000000;
 		System.out.println("move: " + move + " Time: " + percent + "%\n");
+
 	}
 
 	abstract public int rateField(int y, int x);
@@ -143,7 +145,7 @@ abstract class AI extends Creature {
 
 	}
 
-
+	abstract void feel();
 }
 
 class Field implements Comparable<Field>{

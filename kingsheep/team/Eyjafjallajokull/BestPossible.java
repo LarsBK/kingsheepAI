@@ -22,8 +22,8 @@ class BestPossible implements Algorithm {
 		parent = p;
 
 		BestPath path = new BestPath(p.y, p.x);
-		toReturn[path.calculate()] = 100;
-		return toReturn;
+		//toReturn[path.calculate()] = 100;
+		return path.calculate(); //toReturn;
 
 	}
 
@@ -39,9 +39,9 @@ class BestPossible implements Algorithm {
 			nodes[x][y] = n;
 		}
 
-		int calculate() {
+		int[] calculate() {
 			n.grow();
-			return n.dir;
+			return n.h;
 		}
 
 
@@ -51,6 +51,7 @@ class BestPossible implements Algorithm {
 			int x, y;
 			int rate;
 			int dir;
+			int[] h;
 
 			Node(int xi, int yi, Node n, int r) {
 				x = xi;
@@ -61,16 +62,25 @@ class BestPossible implements Algorithm {
 			}
 
 			void rateSelf(int r) {
-				rate = r + parent.rateField(x,y) - 5;
+				rate = r + parent.rateField(x,y) - 1;
 			}
 
 			int grow() {
-				System.out.println("y: " + x + " x: " + y);
-				int[] h = new int[5];
+				h = new int[5];
 				h[1] = tryGrow(x-1,y);
 				h[2] = tryGrow(x+1,y);
 				h[3] = tryGrow(x,y-1);
 				h[4] = tryGrow(x,y+1);
+
+				/*for(int i = 0; i < map.length; i++) {
+					for(int u = 0; u < map[0].length; u++) {
+						if(nodes[i][u] == null)
+							System.out.print(1);
+						else
+							System.out.print(" ");
+					}
+					System.out.println();
+				}*/
 
 
 				int b = 0;
@@ -79,7 +89,7 @@ class BestPossible implements Algorithm {
 						b = i;
 				}
 				dir = b;
-				return h[b];
+				return h[b];// + h[1] + h[2] + h[3] + h[4];
 			}
 
 			int tryGrow(int xi, int yi) {
@@ -98,10 +108,10 @@ class BestPossible implements Algorithm {
 									n.rateSelf(rate);
 									return n.grow();
 								} else
-									return rate;
+									return 0;
 							}
 						} else
-							return rate;
+							return 0;
 					} else {
 						//new path
 						n = new Node(xi,yi,this,rate);
@@ -110,7 +120,7 @@ class BestPossible implements Algorithm {
 					}
 					//n.grow();
 				} else {
-					return rate;
+					return 0;
 				}
 			}
 
