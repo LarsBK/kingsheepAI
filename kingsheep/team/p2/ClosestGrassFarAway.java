@@ -1,4 +1,4 @@
-package kingsheep.team.Eyjafjallajokull;
+package kingsheep.team.p2;
 import kingsheep.*;
 import java.util.ArrayList;
 import java.util.HashMap;
