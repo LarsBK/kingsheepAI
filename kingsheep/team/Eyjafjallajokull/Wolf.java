@@ -18,8 +18,8 @@ public class Wolf extends AI {
 		//a[2] = new keepSameDirection();
 		//a[3] = new DontStandStill();
 		//a[4] = new DontMoveBack();
-		//a[0] = new TowardBest();
-		a[0] = new ClosestGrassFarAway();
+		a[0] = new TowardBest();
+		//a[0] = new ClosestGrassFarAway();
     }
 
     public int rateField(int ry, int rx) {

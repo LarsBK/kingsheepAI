@@ -1,4 +1,3 @@
-
 package kingsheep.team.Eyjafjallajokull;
 import kingsheep.*;
 
