@@ -29,7 +29,6 @@ class PathAStarRate implements Path {
 
 		while(done == null) {
 			if(openList.size() <= 0) {
-				System.out.println("Path not found");
 				return a;
 			}
 			Node n = getLowest();

@@ -34,8 +34,8 @@ public class Wolf extends AI {
 		//This is important!
 		//Keeps ai from going back and fourth between two squares
 		//Should have low priority
-		a[4] = new keepSameDirection();
-		a[5] = new DontMoveBack();
+		//a[4] = new keepSameDirection();
+		//a[5] = new DontMoveBack();
 		
     }
 
