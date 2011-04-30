@@ -1,6 +1,5 @@
 package kingsheep.team.Eyjafjallajokull;
 import kingsheep.*;
-//import java.lang.Enum;
 
 class keepSameDirection implements Algorithm {
 	int prevX = 0;
@@ -31,7 +30,7 @@ class keepSameDirection implements Algorithm {
 	}
 
 	public double getMultiplyer() {
-		return 0.1f;
+		return 0.5f;
 	}
 
 	public String getName() {

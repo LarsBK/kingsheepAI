@@ -19,6 +19,9 @@ abstract class AI extends Creature {
 	int enemyWolfX;
 	int enemyWolfY;
 
+	static Sheep sheep;
+	static Wolf wolf;
+
 	//list of good and bad fields
 	ArrayList<Field> goodFields = new ArrayList<Field>();
 	ArrayList<Field> badFields = new ArrayList<Field>();
@@ -46,12 +49,13 @@ abstract class AI extends Creature {
 		for(int i = 0; i < a.length; i++) {
 			long time = System.nanoTime();
 			try{
+				System.out.print(a[i].getName());
 				result = a[i].calculate(map, this);
 
 				long totalTime = System.nanoTime() - time;
 				double percent = totalTime/10000000;
 
-				System.out.print(a[i].getName() + "(" + percent + "%): ");
+				System.out.print("(" + percent + "%): ");
 				thinkTime += totalTime;
 				
 				for(int u = 0; u < result.length; u++) {
@@ -133,6 +137,14 @@ abstract class AI extends Creature {
 		for (int y = 0; y<map.length; y++) {
 			for (int x = 0; x < map[y].length; x++) {
 				rate = rateField(y,x);
+				if(map[y][x] == Type.SHEEP2) {
+					enemySheepX = x;
+					enemySheepY = y;
+				} else if (map[y][x] == Type.WOLF2) {
+					enemyWolfX = x;
+					enemyWolfY = y;
+				}
+
 				if(rate > 0) {
 					goodFields.add(new Field(y,x,rate,map[y][x]));
 				} else if(rate < 0) {

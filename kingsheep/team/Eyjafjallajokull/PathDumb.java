@@ -25,4 +25,8 @@ class PathDumb implements Path {
 
 		return a;
 	}
+
+	public int getDistance() {
+		return Math.abs(targetY - fromY) + Math.abs(targetX - fromX);
+	}
 }
