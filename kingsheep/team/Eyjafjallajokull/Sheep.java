@@ -10,7 +10,7 @@ public class Sheep extends AI {
 		AI.sheep = this;
 
 		eatGrass = 100;
-		eatSheep = -30; //You generally want to be someplace else than the enemy
+		eatSheep = -50; //You generally want to be someplace else than the enemy
 		protectSheep = 100; //Stay alive, replaces wolfFear. 100 is terrified of enemy wolf
 		protectGrass = 0;
 
@@ -25,7 +25,7 @@ public class Sheep extends AI {
 		//TowardAll goes toward highest consentration of good fields
 		//Uncertain of priorities of these
 		a[2] = new TowardAll();
-		a[3] = new ClosestGrassFarAway();
+		//a[3] = new ClosestGrassFarAway(); //BUG
 		//a[0] = new TowardBest();
 
 		//This is important!

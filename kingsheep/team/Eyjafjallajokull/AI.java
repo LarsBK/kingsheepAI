@@ -25,6 +25,9 @@ abstract class AI extends Creature {
 	//list of good and bad fields
 	ArrayList<Field> goodFields = new ArrayList<Field>();
 	ArrayList<Field> badFields = new ArrayList<Field>();
+	
+	//sum of rate > 0
+	int totalGoodRate;
 
 
 	Type map[][];
@@ -48,6 +51,7 @@ abstract class AI extends Creature {
 
 		for(int i = 0; i < a.length; i++) {
 			long time = System.nanoTime();
+			if(a[i] != null) {
 			try{
 				System.out.print(a[i].getName());
 				result = a[i].calculate(map, this);
@@ -66,11 +70,13 @@ abstract class AI extends Creature {
 				System.err.println(a[i].getName() + " has crashed");
 				e.printStackTrace();
 				//hang
+				//REMOVE BEFORE COMPO
 				while(true) {}
 			}
 			int in = (int) (a[i].getMultiplyer()*100);
 			double m = (double)in / 100;
 			System.out.println(" *" + m);
+			}
 		}
 
 		//move = Move.WAIT;
@@ -147,6 +153,7 @@ abstract class AI extends Creature {
 
 				if(rate > 0) {
 					goodFields.add(new Field(y,x,rate,map[y][x]));
+					totalGoodRate+=rate;
 				} else if(rate < 0) {
 					badFields.add(new Field(y,x,rate,map[y][x]));
 				}
@@ -171,6 +178,10 @@ class Field implements Comparable<Field>{
 		y = yi;
 		rate = r;
 		type = t;
+	}
+
+	public int getRate() {
+		return rate.intValue();
 	}
 
 	public int compareTo(Field f) {
