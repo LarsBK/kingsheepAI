@@ -28,7 +28,7 @@ public class Wolf extends AI {
 		//TowardAll goes toward highest consentration of good fields
 		//Uncertain of priorities of these
 		a[2] = new TowardAll();
-		a[3] = new ClosestGrassFarAway(); //BUG
+		a[3] = new ClosestGrassFarAway();
 		//a[0] = new TowardBest();
 
 		//This is important!
