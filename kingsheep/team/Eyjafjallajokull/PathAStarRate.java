@@ -29,7 +29,6 @@ class PathAStarRate implements Path {
 
 		while(done == null) {
 			if(openList.size() <= 0) {
-				System.out.println("Path not found");
 				return a;
 			}
 			Node n = getLowest();
@@ -96,7 +95,7 @@ class PathAStarRate implements Path {
 				//if(rate == 0)
 					G = parent.G + 1;
 					totalRate = parent.totalRate + 
-							AIparent.rateField(y,x) - 1;
+							AIparent.rateField(y,x) - 20;
 				//else if(rate > 0)
 				//	G = parent.G -1;
 				//else
@@ -113,8 +112,8 @@ class PathAStarRate implements Path {
 		Node spawn() {
 			Node n[] = new Node[4];
 			n[0] = SpawnHelper(y+1,x);
-			n[1] = SpawnHelper(y-1,x);
-			n[2] = SpawnHelper(y,x+1);
+			n[1] = SpawnHelper(y,x+1);
+			n[2] = SpawnHelper(y-1,x);
 			n[3] = SpawnHelper(y,x-1);
 
 			for (int i = 0; i<n.length; i++) {

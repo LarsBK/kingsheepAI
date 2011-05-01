@@ -14,10 +14,16 @@ class TowardBest implements Algorithm {
 	}
 
     public int[] calculate(Type map[][], AI parent) {
-		if(parent.goodFields.size() > 0) {
-			Field f = parent.goodFields.get(parent.goodFields.size() - 1);
+		int[] a;
+		for(int i = parent.goodFields.size()-1; i > -1; i--) {
+			Field f = parent.goodFields.get(i);
 			Path path = new PathAStarRate(parent.y, parent.x, f.y, f.x, map,parent);
-			return path.getDirection();
+			a = path.getDirection();
+			
+			for(int u = 0; u < a.length; u++) {
+				if(a[u] != 0)
+					return a;
+			}
 		}
 
 		return new int[5];

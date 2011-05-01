@@ -7,26 +7,32 @@ public class Sheep extends AI {
 	public Sheep(Type type, Simulator parent, int playerID, int x, int y) {
 		super(type, parent, playerID, x, y);
 		
+		AI.sheep = this;
+
 		eatGrass = 100;
-		eatSheep = 0;
+		eatSheep = -50; //You generally want to be someplace else than the enemy
 		protectSheep = 100; //Stay alive, replaces wolfFear. 100 is terrified of enemy wolf
 		protectGrass = 0;
 
-		a = new Algorithm[1];
-		//a[0] = new BestClose();
-		a[0] = new ClosestGrassFarAway();
-		//a[1] = new ClosestGrass();
-		//a[2] = new dontMoveIntoWall(); unstable
-		//a[2] = new keepSameDirection();
-		//a[2] = new Evade(); unstable
-		//a[3] = new DontStandStill();
-		//a[4] = new DontMoveBack();
-		//a[5] = new Random();
+		a = new Algorithm[7];
 
-		//a[0] = new BestPossible();
-		//test2.mapa[0] = new TowardBest();
+		//Random combined with DontMoveIllegal prevents standing still
+		//Good when a block has occured
+		//Random should have low priority, DontMoveIllegal high
+		a[0] = new Random();
+		a[1] = new DontMoveIllegal();
 
+		//TowardAll goes toward highest consentration of good fields
+		//Uncertain of priorities of these
+		//a[2] = new TowardAll();
+		a[3] = new ClosestGrassFarAway();
+		a[4] = new TowardAll();
 
+		//This is important!
+		//Keeps ai from going back and fourth between two squares
+		//Should have low priority
+		a[5] = new keepSameDirection();
+		a[6] = new DontMoveBack();
 
 
 	}
