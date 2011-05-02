@@ -17,7 +17,7 @@ class Random implements Algorithm {
 	}
 
 	public double getMultiplyer() {
-		return 0.13f;
+		return 0.03f;
 	}
 }
 

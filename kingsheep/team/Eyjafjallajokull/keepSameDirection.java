@@ -30,7 +30,7 @@ class keepSameDirection implements Algorithm {
 	}
 
 	public double getMultiplyer() {
-		return 0.5f;
+		return 0.1f;
 	}
 
 	public String getName() {

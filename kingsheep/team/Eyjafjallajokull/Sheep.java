@@ -10,7 +10,7 @@ public class Sheep extends AI {
 		AI.sheep = this;
 
 		eatGrass = 100;
-		eatSheep = -50; //You generally want to be someplace else than the enemy
+		eatSheep = 0; //-50; //You generally want to be someplace else than the enemy
 		protectSheep = 100; //Stay alive, replaces wolfFear. 100 is terrified of enemy wolf
 		protectGrass = 0;
 
@@ -52,11 +52,12 @@ public class Sheep extends AI {
 
 		if(!isLegal(ry,rx, map)) {
 			rate= -100;
+			return rate;
 		}
 		else if(map[ry][rx] == Type.GRASS) {
-			rate= eatGrass/5;
+			rate= isCloser(ry,rx) * eatGrass/5;
 		} else if(map[ry][rx] == Type.RHUBARB) {
-			rate= eatGrass;
+			rate= isCloser(ry,rx) * eatGrass;
 		} else if(map[ry][rx] == Type.SHEEP2) {
 			rate= eatSheep;
 		} else if(map[ry][rx] == Type.WOLF2) {
@@ -77,5 +78,30 @@ public class Sheep extends AI {
 		//if(map[ry][rx] != Type.EMPTY)
 		//	System.out.println(map[ry][rx] + " rate: " + rate);
 		return rate;
+	}
+
+	//Should the sheep eat this field
+	private int isCloser(int yi, int xi) {
+		if(!AI.sheep.alive)
+			return 2;
+		
+		//Find path from my sheep to this field
+		PathAStar fromMySheep = new PathAStar(y,x, yi, xi,map);
+		fromMySheep.getDirection();
+		int distanceMySheep = fromMySheep.getDistance();
+
+		//Find path from enemy sheep to this field
+		PathAStar fromEnemySheep = new PathAStar(enemySheepY,enemySheepX,yi,xi,map);
+		fromEnemySheep.getDirection();
+		int distanceEnemySheep = fromEnemySheep.getDistance();
+		//System.out.println("1 " + distanceEnemySheep);
+		//System.out.println("2 " + distanceMySheep);
+
+		if(distanceEnemySheep >= distanceMySheep) {
+			return 10;
+		} else {
+			return 1;
+		}
+
 	}
 }
