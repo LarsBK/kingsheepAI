@@ -17,11 +17,12 @@ class TowardAll implements Algorithm {
 		int[] a = new int[5];
 		for(int i = parent.goodFields.size()-1; i > -1; i--) {
 			Field f = parent.goodFields.get(i);
-			Path path = new PathAStarRate(parent.y, parent.x, f.y, f.x, map,parent);
+			Path path = new PathAStar(parent.y, parent.x, f.y, f.x, map);//,parent);
 			int[] temp = path.getDirection();
 
 			for(int u = 0; u < temp.length; u++) {
-				a[u] += (temp[u])*(parent.rateField(f.y,f.x));// /(parent.totalGoodRate);/// parent.goodFields.size());
+				a[u] += (temp[u]/100)*(parent.rateField(f.y,f.x));// /(parent.totalGoodRate);/// parent.goodFields.size());
+				//System.out.println("a" + a[u]);
 			}
 		}
 
@@ -34,19 +35,16 @@ class TowardAll implements Algorithm {
 
 
 		//find divisor
-		float divisor;
-		if(highest != 0)
-			divisor = highest/100;
-		else
-			divisor = 1;
+		double divisor;
+		divisor = (double) highest/100.0f;
 
-		System.out.println("d" + divisor);
+		//System.out.println("d" + divisor);
 
 		//normalize
 		double OMG;
 		for(int i = 0; i < a.length; i++) {
 			OMG = a[i] / divisor;
-			System.out.println(OMG);
+			//System.out.println(OMG);
 			a[i] = (int) Math.round(OMG);
 		}
 

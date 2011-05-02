@@ -98,9 +98,9 @@ public class Sheep extends AI {
 		//System.out.println("2 " + distanceMySheep);
 
 		if(distanceEnemySheep >= distanceMySheep) {
-			return 10;
+			return 3;
 		} else {
-			return 1;
+			return 2;
 		}
 
 	}
