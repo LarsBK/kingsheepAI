@@ -7,7 +7,7 @@ class DontMoveIllegal implements Algorithm {
 	AI parent;
 
 	public double getMultiplyer() {
-		return 5.0f;
+		return 10.0f;
 	}
 	
 	public String getName() {
