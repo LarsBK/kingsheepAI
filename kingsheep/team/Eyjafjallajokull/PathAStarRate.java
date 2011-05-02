@@ -31,6 +31,7 @@ class PathAStarRate implements Path {
 			if(openList.size() <= 0) {
 				return a;
 			}
+			//System.out.println("size: " + openList.size());
 			Node n = getLowest();
 			openList.remove(n);
 			closedList.add(n);
@@ -67,7 +68,7 @@ class PathAStarRate implements Path {
 		for(Node n : openList) {
 			if(n.totalRate > highestRate)
 				highest = n;
-				highestRate = n.totalRate;
+			highestRate = n.totalRate;
 		}
 		return highest;
 	}
@@ -93,14 +94,14 @@ class PathAStarRate implements Path {
 			if(parent != null) {
 				//int rate = AIparent.rateField(y,x);
 				//if(rate == 0)
-					G = parent.G + 1;
-					totalRate = parent.totalRate + 
-							AIparent.rateField(y,x) - 20;
+				G = parent.G + 1;
+				totalRate = parent.totalRate + 
+					AIparent.rateField(y,x) - 20;
 				//else if(rate > 0)
 				//	G = parent.G -1;
 				//else
 				//	G = parent.G + 2;
-					
+
 			} else
 				G = 0;
 
@@ -129,18 +130,18 @@ class PathAStarRate implements Path {
 				int index = openList.indexOf(n);
 				if(index != -1) {
 					Node existing = openList.get(index);
-					
 					if(existing.totalRate < totalRate) {
 						existing.parent = this;
 						existing.calculate();
 						return null;
 					}
+				} else {
+					openList.add(n);
+					if(n.x == targetX && n.y == targetY)
+						return n;
+					else
+						return null;
 				}
-				openList.add(n);
-				if(n.x == targetX && n.y == targetY)
-					return n;
-				else
-					return null;
 			}
 			return null;
 		}
