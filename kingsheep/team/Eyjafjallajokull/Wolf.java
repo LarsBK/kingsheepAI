@@ -14,7 +14,7 @@ public class Wolf extends AI {
 		eatSheep = 30;
 
 		//unused?
-		protectSheep = 0;
+		protectSheep = 50; //unngå andre wolf
 		protectGrass = 0;
 
 		a = new Algorithm[6];
@@ -27,9 +27,9 @@ public class Wolf extends AI {
 
 		//TowardAll goes toward highest consentration of good fields
 		//Uncertain of priorities of these
-		a[2] = new TowardAll();
+		//a[2] = new TowardAll();
 		a[3] = new ClosestGrassFarAway();
-		//a[0] = new TowardBest();
+		a[0] = new TowardAll(1.0);
 
 		//This is important!
 		//Keeps ai from going back and fourth between two squares

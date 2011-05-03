@@ -26,7 +26,7 @@ public class Sheep extends AI {
 		//Uncertain of priorities of these
 		//a[2] = new TowardAll();
 		a[3] = new ClosestGrassFarAway();
-		a[4] = new TowardAll();
+		a[4] = new TowardAll(2.0);
 		a[8] = new BestClose();
 
 		//This is important!

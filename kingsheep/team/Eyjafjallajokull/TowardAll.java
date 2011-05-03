@@ -4,13 +4,18 @@ import kingsheep.*;
 
 class TowardAll implements Algorithm {
 
+	double multi = 0.0;
+
+	TowardAll(double m) {
+		multi = m;
+	}
 
 	public String getName() {
 		return "TowardAll";
 	}
 
 	public double getMultiplyer() {
-		return 2.0f;
+		return multi;
 	}
 
 
