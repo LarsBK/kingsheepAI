@@ -12,7 +12,7 @@ class BestClose implements Algorithm {
 	}
 	
 	public double getMultiplyer() {
-		return 4.0f;
+		return 0.5f; //var 4.0 ClosestGrassFarAway + den her = min
 	}
 
     public int[] calculate(Type map[][], AI parent) {
