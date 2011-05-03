@@ -15,6 +15,7 @@ public class Wolf extends Creature {
 		Scanner i = new Scanner(System.in);
 		String text;
 
+		System.out.print("Wolf: ");
 		try {
 			text = i.nextLine();
 		} catch(Exception e) {
@@ -22,7 +23,6 @@ public class Wolf extends Creature {
 			text = "";
 		}   
 		
-		System.out.print("Wolf: ");
 
 
 		if(text.equals("w")) {

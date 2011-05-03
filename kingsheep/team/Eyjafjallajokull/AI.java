@@ -19,9 +19,15 @@ abstract class AI extends Creature {
 	int enemyWolfX;
 	int enemyWolfY;
 
+	static Sheep sheep;
+	static Wolf wolf;
+
 	//list of good and bad fields
 	ArrayList<Field> goodFields = new ArrayList<Field>();
 	ArrayList<Field> badFields = new ArrayList<Field>();
+	
+	//sum of rate > 0
+	int totalGoodRate;
 
 
 	Type map[][];
@@ -45,13 +51,15 @@ abstract class AI extends Creature {
 
 		for(int i = 0; i < a.length; i++) {
 			long time = System.nanoTime();
+			if(a[i] != null) {
 			try{
+				System.out.print(a[i].getName());
 				result = a[i].calculate(map, this);
 
 				long totalTime = System.nanoTime() - time;
 				double percent = totalTime/10000000;
 
-				System.out.print(a[i].getName() + "(" + percent + "%): ");
+				System.out.print("(" + percent + "%): ");
 				thinkTime += totalTime;
 				
 				for(int u = 0; u < result.length; u++) {
@@ -62,11 +70,13 @@ abstract class AI extends Creature {
 				System.err.println(a[i].getName() + " has crashed");
 				e.printStackTrace();
 				//hang
+				//REMOVE BEFORE COMPO
 				while(true) {}
 			}
 			int in = (int) (a[i].getMultiplyer()*100);
 			double m = (double)in / 100;
 			System.out.println(" *" + m);
+			}
 		}
 
 		//move = Move.WAIT;
@@ -97,7 +107,17 @@ abstract class AI extends Creature {
 
 	}
 
-	abstract public int rateField(int y, int x);
+	int[][] fieldRates;
+
+	abstract public int rateFieldHelp(int yi, int xi);
+
+	public int rateField(int yi, int xi) {
+		if(yi < 0 || yi > map.length-1 || xi < 0 || xi > map[0].length-1) {
+			return -100;
+		}
+
+		return fieldRates[yi][xi];
+	}
 
 	static boolean isLegal(Type t1, Type t2) {
 	
@@ -129,12 +149,23 @@ abstract class AI extends Creature {
 		int rate;
 		goodFields.clear();
 		badFields.clear();
+		fieldRates = new int[map.length][map[0].length];
 
 		for (int y = 0; y<map.length; y++) {
 			for (int x = 0; x < map[y].length; x++) {
-				rate = rateField(y,x);
+				rate = rateFieldHelp(y,x);
+				fieldRates[y][x] = rate;
+				if(map[y][x] == Type.SHEEP2) {
+					enemySheepX = x;
+					enemySheepY = y;
+				} else if (map[y][x] == Type.WOLF2) {
+					enemyWolfX = x;
+					enemyWolfY = y;
+				}
+
 				if(rate > 0) {
 					goodFields.add(new Field(y,x,rate,map[y][x]));
+					totalGoodRate+=rate;
 				} else if(rate < 0) {
 					badFields.add(new Field(y,x,rate,map[y][x]));
 				}
@@ -159,6 +190,10 @@ class Field implements Comparable<Field>{
 		y = yi;
 		rate = r;
 		type = t;
+	}
+
+	public int getRate() {
+		return rate.intValue();
 	}
 
 	public int compareTo(Field f) {

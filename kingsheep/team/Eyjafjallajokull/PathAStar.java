@@ -19,9 +19,10 @@ class PathAStar implements Path {
 		targetY = toY;
 
 		openList.add(new Node(fromY, fromX, null));
-		System.out.println("Target: " + toY + " " + toX);
+		//System.out.println("Target: " + toY + " " + toX);
 
 	}
+
 
 	public int[] getDirection() {
 		int a[] = new int[5];
@@ -30,7 +31,7 @@ class PathAStar implements Path {
 
 		while(done == null) {
 			if(openList.size() <= 0) {
-				System.out.println("Path not found");
+				//System.out.println("Path not found");
 				return a;
 			}
 			Node n = getLowest();
@@ -48,6 +49,7 @@ class PathAStar implements Path {
 			c = c.parent;
 		}
 
+
 		if(path[1].y < path[0].y)
 			a[1] = 100;
 		if(path[1].y > path[0].y)
@@ -58,7 +60,6 @@ class PathAStar implements Path {
 			a[4] = 100;
 		
 		length = done.parent.G;
-		System.out.println("D: " + length);
 		return a;
 
 
@@ -108,7 +109,6 @@ class PathAStar implements Path {
 		}
 
 		Node spawn() {
-			//System.out.println("Distance: " + F);			
 
 			Node n[] = new Node[4];
 			n[0] = SpawnHelper(y+1,x);
@@ -122,6 +122,7 @@ class PathAStar implements Path {
 			}
 			return null;
 		}
+		
 
 		Node SpawnHelper(int yi, int xi) {
 			Node n = new Node(yi,xi,this);

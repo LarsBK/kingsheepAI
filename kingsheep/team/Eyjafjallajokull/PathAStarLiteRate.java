@@ -4,23 +4,31 @@ import kingsheep.*;
 
 
 
-class PathAStarRate implements Path {
+class PathAStarLiteRate implements Path {
 	ArrayList<Node> openList = new ArrayList<Node>();
 	ArrayList<Node> closedList = new ArrayList<Node>();
 
 	int targetX;
 	int targetY;
 	Type map[][];
-	AI AIparent;
+	int distance = 0;
+	AI p;
 
-	PathAStarRate(int fromY, int fromX, int toY, int toX, Type m[][], AI p) {
+	PathAStarLiteRate(int fromY, int fromX, int toY, int toX, Type m[][], AI pa) {
 		map = m;
+		p = pa;
 		targetX = toX;
 		targetY = toY;
-		AIparent = p;
 
 		openList.add(new Node(fromY, fromX, null));
+		//System.out.println("Target: " + toY + " " + toX);
+
 	}
+
+	public int getDistance() {
+		return distance;
+	}
+
 
 	public int[] getDirection() {
 		int a[] = new int[5];
@@ -29,9 +37,9 @@ class PathAStarRate implements Path {
 
 		while(done == null) {
 			if(openList.size() <= 0) {
+				//System.out.println("Path not found");
 				return a;
 			}
-			//System.out.println("size: " + openList.size());
 			Node n = getLowest();
 			openList.remove(n);
 			closedList.add(n);
@@ -46,6 +54,8 @@ class PathAStarRate implements Path {
 			path[i] = c;
 			c = c.parent;
 		}
+
+		distance = done.G;
 
 		if(path[1].y < path[0].y)
 			a[1] = 100;
@@ -62,15 +72,15 @@ class PathAStarRate implements Path {
 	}
 
 	Node getLowest() {
-		int highestRate = Integer.MIN_VALUE;
-		Node highest = null;
+		int lowestF = Integer.MAX_VALUE;
+		Node lowest = null;
 
 		for(Node n : openList) {
-			if(n.totalRate > highestRate)
-				highest = n;
-			highestRate = n.totalRate;
+			if(n.F < lowestF)
+				lowest = n;
+				lowestF = lowest.F;
 		}
-		return highest;
+		return lowest;
 	}
 
 	class Node {
@@ -81,7 +91,6 @@ class PathAStarRate implements Path {
 		int G; //Distance to this node
 		int H; //Estimated distance to target
 		int F; //Estimated total distance to target
-		int totalRate; //Rate to this node
 
 		Node(int yi, int xi, Node p) {
 			y = yi;
@@ -91,18 +100,9 @@ class PathAStarRate implements Path {
 		}
 
 		void calculate() {
-			if(parent != null) {
-				//int rate = AIparent.rateField(y,x);
-				//if(rate == 0)
+			if(parent != null)
 				G = parent.G + 1;
-				totalRate = parent.totalRate + 
-					AIparent.rateField(y,x) - 20;
-				//else if(rate > 0)
-				//	G = parent.G -1;
-				//else
-				//	G = parent.G + 2;
-
-			} else
+			else
 				G = 0;
 
 			H = Math.abs(targetX - x) + Math.abs(targetY - y);
@@ -111,10 +111,12 @@ class PathAStarRate implements Path {
 		}
 
 		Node spawn() {
+		//	System.out.println("Distance: " + F);			
+
 			Node n[] = new Node[4];
 			n[0] = SpawnHelper(y+1,x);
-			n[1] = SpawnHelper(y,x+1);
-			n[2] = SpawnHelper(y-1,x);
+			n[1] = SpawnHelper(y-1,x);
+			n[2] = SpawnHelper(y,x+1);
 			n[3] = SpawnHelper(y,x-1);
 
 			for (int i = 0; i<n.length; i++) {
@@ -126,22 +128,22 @@ class PathAStarRate implements Path {
 
 		Node SpawnHelper(int yi, int xi) {
 			Node n = new Node(yi,xi,this);
-			if(AI.isLegal(yi,xi,map) && !closedList.contains(n)) {
+			if(AI.isLegal(yi,xi,map) && !closedList.contains(n) && p.rateField(yi,xi) > 0) {
 				int index = openList.indexOf(n);
 				if(index != -1) {
 					Node existing = openList.get(index);
-					if(existing.totalRate < totalRate) {
+					
+					if(existing.G > G) {
 						existing.parent = this;
 						existing.calculate();
 						return null;
 					}
-				} else {
-					openList.add(n);
-					if(n.x == targetX && n.y == targetY)
-						return n;
-					else
-						return null;
 				}
+				openList.add(n);
+				if(n.x == targetX && n.y == targetY)
+					return n;
+				else
+					return null;
 			}
 			return null;
 		}

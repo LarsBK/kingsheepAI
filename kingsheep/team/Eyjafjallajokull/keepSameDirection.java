@@ -1,6 +1,5 @@
 package kingsheep.team.Eyjafjallajokull;
 import kingsheep.*;
-//import java.lang.Enum;
 
 class keepSameDirection implements Algorithm {
 	int prevX = 0;
