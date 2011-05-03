@@ -1,1 +1,1 @@
-ant compile && java -jar dist/kingsheep.jar res/test.map Eyjafjallajokull Eyjafjallajokull
+ant compile && java -jar dist/kingsheep.jar res/test2.map Eyjafjallajokull p2

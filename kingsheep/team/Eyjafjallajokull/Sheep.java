@@ -14,7 +14,7 @@ public class Sheep extends AI {
 		protectSheep = 100; //Stay alive, replaces wolfFear. 100 is terrified of enemy wolf
 		protectGrass = 0;
 
-		a = new Algorithm[8];
+		a = new Algorithm[9];
 
 		//Random combined with DontMoveIllegal prevents standing still
 		//Good when a block has occured
@@ -27,6 +27,7 @@ public class Sheep extends AI {
 		//a[2] = new TowardAll();
 		a[3] = new ClosestGrassFarAway();
 		a[4] = new TowardAll();
+		a[8] = new BestClose();
 
 		//This is important!
 		//Keeps ai from going back and fourth between two squares
