@@ -90,7 +90,7 @@ public class Wolf extends AI {
 		if(distanceEnemySheep < distanceMySheep) {
 			return 1;
 		} else {
-			return 0;
+			return -1;
 		}
 
 	}

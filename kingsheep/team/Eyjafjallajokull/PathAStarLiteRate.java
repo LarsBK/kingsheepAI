@@ -4,7 +4,7 @@ import kingsheep.*;
 
 
 
-class PathAStar implements Path {
+class PathAStarLiteRate implements Path {
 	ArrayList<Node> openList = new ArrayList<Node>();
 	ArrayList<Node> closedList = new ArrayList<Node>();
 
@@ -12,9 +12,11 @@ class PathAStar implements Path {
 	int targetY;
 	Type map[][];
 	int distance = 0;
+	AI p;
 
-	PathAStar(int fromY, int fromX, int toY, int toX, Type m[][]) {
+	PathAStarLiteRate(int fromY, int fromX, int toY, int toX, Type m[][], AI pa) {
 		map = m;
+		p = pa;
 		targetX = toX;
 		targetY = toY;
 
@@ -123,11 +125,10 @@ class PathAStar implements Path {
 			}
 			return null;
 		}
-		
 
 		Node SpawnHelper(int yi, int xi) {
 			Node n = new Node(yi,xi,this);
-			if(AI.isLegal(yi,xi,map) && !closedList.contains(n)) {
+			if(AI.isLegal(yi,xi,map) && !closedList.contains(n) && p.rateField(yi,xi) > 0) {
 				int index = openList.indexOf(n);
 				if(index != -1) {
 					Node existing = openList.get(index);
