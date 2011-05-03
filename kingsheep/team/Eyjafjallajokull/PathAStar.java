@@ -11,6 +11,7 @@ class PathAStar implements Path {
 	int targetX;
 	int targetY;
 	Type map[][];
+	int length;
 
 	PathAStar(int fromY, int fromX, int toY, int toX, Type m[][]) {
 		map = m;
@@ -55,10 +56,16 @@ class PathAStar implements Path {
 			a[3] = 100;
 		if(path[1].x > path[0].x)
 			a[4] = 100;
-
+		
+		length = done.parent.G;
+		System.out.println("D: " + length);
 		return a;
 
 
+	}
+
+	public int getDistance() {
+		return length;
 	}
 
 	Node getLowest() {
@@ -101,7 +108,7 @@ class PathAStar implements Path {
 		}
 
 		Node spawn() {
-			System.out.println("Distance: " + F);			
+			//System.out.println("Distance: " + F);			
 
 			Node n[] = new Node[4];
 			n[0] = SpawnHelper(y+1,x);
