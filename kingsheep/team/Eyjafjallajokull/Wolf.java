@@ -39,7 +39,7 @@ public class Wolf extends AI {
 		
     }
 
-    public int rateField(int ry, int rx) {
+    public int rateFieldHelp(int ry, int rx) {
 		//0 er nøytral
 		int rate;
 

@@ -107,7 +107,17 @@ abstract class AI extends Creature {
 
 	}
 
-	abstract public int rateField(int y, int x);
+	int[][] fieldRates;
+
+	abstract public int rateFieldHelp(int yi, int xi);
+
+	public int rateField(int yi, int xi) {
+		if(yi < 0 || yi > map.length-1 || xi < 0 || xi > map[0].length-1) {
+			return -100;
+		}
+
+		return fieldRates[yi][xi];
+	}
 
 	static boolean isLegal(Type t1, Type t2) {
 	
@@ -139,10 +149,12 @@ abstract class AI extends Creature {
 		int rate;
 		goodFields.clear();
 		badFields.clear();
+		fieldRates = new int[map.length][map[0].length];
 
 		for (int y = 0; y<map.length; y++) {
 			for (int x = 0; x < map[y].length; x++) {
-				rate = rateField(y,x);
+				rate = rateFieldHelp(y,x);
+				fieldRates[y][x] = rate;
 				if(map[y][x] == Type.SHEEP2) {
 					enemySheepX = x;
 					enemySheepY = y;

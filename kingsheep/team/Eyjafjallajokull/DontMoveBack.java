@@ -30,7 +30,7 @@ class DontMoveBack implements Algorithm {
 	}
 
 	public double getMultiplyer() {
-		return 1.5f;
+		return 0.5f;
 	}
 
 	public String getName() {
