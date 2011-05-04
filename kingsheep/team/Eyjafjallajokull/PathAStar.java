@@ -32,6 +32,7 @@ class PathAStar implements Path {
 		while(done == null) {
 			if(openList.size() <= 0) {
 				//System.out.println("Path not found");
+				length = Integer.MAX_VALUE;
 				return a;
 			}
 			Node n = getLowest();

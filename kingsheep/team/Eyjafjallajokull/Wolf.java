@@ -78,16 +78,25 @@ public class Wolf extends AI {
 		if(!AI.sheep.alive)
 			return 1;
 		
+		//Find path from me to this field
+		PathAStar fromMe = new PathAStar(y,x,yi,xi,map);
+		fromMe.getDirection();
+		int distanceMe = fromMe.getDistance();
+
 		//Find path from my sheep to this field
 		PathAStar fromMySheep = new PathAStar(AI.sheep.y,AI.sheep.x, yi, xi,map);
+		fromMySheep.getDirection();
 		int distanceMySheep = fromMySheep.getDistance();
 
 		//Find path from enemy sheep to this field
 		PathAStar fromEnemySheep = new PathAStar(enemySheepY,enemySheepX,yi,xi,map);
+		fromEnemySheep.getDirection();
 		int distanceEnemySheep = fromEnemySheep.getDistance();
 
 		//If enemy sheep is closer than our sheep - eat it
-		if(distanceEnemySheep < distanceMySheep) {
+		if(distanceEnemySheep < distanceMySheep && distanceMe < distanceEnemySheep) {
+			return 2;
+		} else if (distanceEnemySheep < distanceMySheep) {
 			return 1;
 		} else {
 			return -1;
