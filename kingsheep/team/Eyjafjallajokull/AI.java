@@ -34,6 +34,7 @@ abstract class AI extends Creature {
 
 	//Algorithms
 	Algorithm a[];
+	int crashes[];
 
 	AI(Type t, Simulator p, int id, int x, int y) {
 		super(t, p, id, x, y);
@@ -67,11 +68,13 @@ abstract class AI extends Creature {
 					System.out.print("|" + result[u]);
 				}
 			} catch(Exception e) {
+				System.err.println("=================");
 				System.err.println(a[i].getName() + " has crashed");
+				System.err.println("=================");
 				e.printStackTrace();
-				//hang
-				//REMOVE BEFORE COMPO
-				while(true) {}
+				System.err.println("=================");
+				crashes[i]++;
+				//while(true) {}
 			}
 			int in = (int) (a[i].getMultiplyer()*100);
 			double m = (double)in / 100;
