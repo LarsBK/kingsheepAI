@@ -19,7 +19,7 @@ public class Simulator {
 
     /** Minimum time to wait between player turns (even if a player used
         less time to think). */
-    private static final int WAITMIN = 1;
+    private static final int WAITMIN = 300;
 
     /** Number of turns for one game. */
     private static final int TURNS = 100;

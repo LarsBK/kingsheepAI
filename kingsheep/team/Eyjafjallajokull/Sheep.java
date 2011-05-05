@@ -27,7 +27,7 @@ public class Sheep extends AI {
 		//a[2] = new TowardAll();
 		a[3] = new ClosestGrassFarAway();
 		a[4] = new TowardAll(2.0);
-		a[8] = new BestClose();
+		//a[8] = new BestClose();
 
 		//This is important!
 		//Keeps ai from going back and fourth between two squares
